@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   codexion.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 14:21:35 by rem               #+#    #+#             */
-/*   Updated: 2026/07/23 14:21:36 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/23 14:51:13 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-
-void *routine(void *arg)
-{
-    printf("test");
-    return (NULL);
-}
+#include "codexion.h"
 
 int main(int ac, char **av)
 {
