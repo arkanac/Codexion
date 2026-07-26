@@ -6,13 +6,13 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/07/23 18:27:10 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/25 18:27:43 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
  #include "codexion.h"
 
- int is_number(char *str)
+ static int is_number(char *str)
  {
     int i;
 
@@ -28,7 +28,7 @@
     return (0);
  }
 
- int is_int(char *str)
+ static int is_int(char *str)
  {
     if (strlen(str) > 10)
         return(1);

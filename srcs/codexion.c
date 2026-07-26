@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 14:21:35 by rem               #+#    #+#             */
-/*   Updated: 2026/07/23 14:51:13 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/25 18:49:12 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,10 @@
 
 int main(int ac, char **av)
 {
+    t_params params;
+    
+    if (init_params(ac, av, &params))
+        return (1);
+    
+     
 }

@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/07/23 17:05:38 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/25 18:48:43 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ typedef struct s_params
     t_scheduler		scheduler;
     
 } t_params;
+
+int validation(int ac, char **av);
+int init_params(int ac, char **av, t_params *params);
+int main(int ac, char **av)
 
 #endif
