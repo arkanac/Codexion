@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/07/25 18:27:43 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/27 17:01:09 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
     return (0);
  }
  
- int validation(int ac, char *av[])
+ int    validation(int ac, char *av[])
  {
     int i;
     

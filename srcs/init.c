@@ -12,4 +12,18 @@ int init_params(int ac, char *av[], t_params *params)
     params->number_of_compiles_required = atoi(av[6]);
     params->dongle_cooldown = atoi(av[7]);
     return (0);
-}   
+}
+
+int init_dongle(int id, t_dongle *dongle)
+{
+    dongle->id = id;
+    if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
+        return(1);
+    
+
+}
+
+int init_coder(number)
+{
+
+}
