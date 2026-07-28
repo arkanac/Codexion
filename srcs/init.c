@@ -1,26 +1,38 @@
 #include "codexion.h"
 
-int init_params(int ac, char *av[], t_params *params)
-{
-    if (validation(ac, **av) != 0)
-        return (1);
-    params->number_of_coders = atoi(av[1]);
-    params->time_to_burnout = atoi(av[2]);
-    params->time_to_compile = atoi(av[3]);
-    params->time_to_debug = atoi(av[4]);
-    params->time_to_refactor = atoi(av[5]);
-    params->number_of_compiles_required = atoi(av[6]);
-    params->dongle_cooldown = atoi(av[7]);
-    return (0);
-}
-
 int init_dongle(int id, t_dongle *dongle)
 {
     dongle->id = id;
+    dongle->owner = -1;
+    dongle->available_at = 0;
     if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
         return(1);
-    
+    if (pthread_cond_init(&dongle->cond, NULL) != 0)
+	{
+		pthread_mutex_destroy(&dongle->mutex);
+        return(1);
+	}
+    return (0);
+}
 
+t_dongle *create_dongles(int nb)
+{
+    int i;
+    int j;
+    t_dongle *dongles;
+
+    i = 0;
+    dongles = malloc(sizeof(t_dongle) * (nb));
+    if (!dongles)
+        return (NULL);
+    while (i < nb)
+    {
+        if (init_dongle(i, &dongles[i]) != 0)
+            clean_dongles(dongles, i);
+            return(NULL);
+        i++;
+    }
+   return (dongles);
 }
 
 int init_coder(number)

@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/07/27 17:00:54 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/28 16:24:46 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ typedef struct s_params
 typedef struct s_dongle
 {
 	int	id;
-	pthread_mutex_t    mutex
+	pthread_mutex_t    mutex;
+	pthread_cond_t cond;
+	int owner;
+	int available_at;
 } t_dongle;
 
 
-int validation(int ac, char **av);
 int init_params(int ac, char **av, t_params *params);
-int main(int ac, char **av)
+int main(int ac, char **av);
 
 #endif

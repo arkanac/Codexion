@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/07/27 17:01:09 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/28 16:23:49 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
     return (0);
  }
  
- int    validation(int ac, char *av[])
+ static int    validation(int ac, char *av[])
  {
     int i;
     
@@ -56,3 +56,17 @@
         return (1);
     return (0);
  }
+ 
+ int init_params(int ac, char *av[], t_params *params)
+{
+    if (validation(ac, **av) != 0)
+        return (1);
+    params->number_of_coders = atoi(av[1]);
+    params->time_to_burnout = atoi(av[2]);
+    params->time_to_compile = atoi(av[3]);
+    params->time_to_debug = atoi(av[4]);
+    params->time_to_refactor = atoi(av[5]);
+    params->number_of_compiles_required = atoi(av[6]);
+    params->dongle_cooldown = atoi(av[7]);
+    return (0);
+}
