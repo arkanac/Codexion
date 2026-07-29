@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/07/28 16:23:49 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/29 14:51:13 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
  
  int init_params(int ac, char *av[], t_params *params)
 {
-    if (validation(ac, **av) != 0)
+    if (validation(ac, av) != 0)
         return (1);
     params->number_of_coders = atoi(av[1]);
     params->time_to_burnout = atoi(av[2]);

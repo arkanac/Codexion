@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/07/28 16:24:46 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/29 16:42:49 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_params t_params;
+typedef struct s_params		t_params;
+typedef struct s_dongle		t_dongle;
+typedef struct s_coder		t_coder;
 
 typedef enum e_scheduler
 {
@@ -37,21 +39,51 @@ typedef struct s_params
 	int				time_to_refactor;
 	int				number_of_compiles_required;
 	int				dongle_cooldown;
+	long long		start_time;
     t_scheduler		scheduler;
-    
+	t_dongle		*dongles;
+	t_coder			*coders;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	state_mutex;
 } t_params;
 
 typedef struct s_dongle
 {
-	int	id;
 	pthread_mutex_t    mutex;
 	pthread_cond_t cond;
+	int	id;
 	int owner;
-	int available_at;
+	long long available_at;
 } t_dongle;
 
+typedef struct s_coder
+{
+	t_params *params;
+	pthread_t thread;
+	pthread_mutex_t    mutex;
+	t_dongle *left_dongle;
+	t_dongle *right_dongle;
+	int	id;
+	int compile_count;
+	long long last_compile_start;
+} t_coder;
 
+struct timeval 
+{
+    time_t      tv_sec;  
+    suseconds_t tv_usec; 
+};
+
+// Cleaning
+void clean_dongles(t_dongle *dongles, int count);
+void clean_coders(t_coder *coders, int count);
+void clean_all(t_params *params);
+
+// Init
 int init_params(int ac, char **av, t_params *params);
+int init_all(t_params *params);
+
+//
 int main(int ac, char **av);
 
 #endif
