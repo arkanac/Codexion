@@ -27,8 +27,15 @@ void clean_coders(t_coder *coders, int count)
    free(coders);
 }
 
+void clean_global_mutex(t_params *params)
+{
+    pthread_mutex_destroy(&params->print_mutex);
+    pthread_mutex_destroy(&params->state_mutex);
+}
+
 void clean_all(t_params *params)
 {
     clean_coders(params->coders, params->number_of_coders);
     clean_dongles(params->dongles, params->number_of_coders);
+    clean_global_mutex(params);
 }

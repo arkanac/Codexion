@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/07/29 16:42:49 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/30 16:22:47 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,27 @@ typedef struct s_coder
 	long long last_compile_start;
 } t_coder;
 
-struct timeval 
-{
-    time_t      tv_sec;  
-    suseconds_t tv_usec; 
-};
-
 // Cleaning
 void clean_dongles(t_dongle *dongles, int count);
 void clean_coders(t_coder *coders, int count);
+void clean_global_mutex(t_params *params);
 void clean_all(t_params *params);
 
 // Init
-int init_params(int ac, char **av, t_params *params);
+int init_params(int ac, char *av[], t_params *params);
 int init_all(t_params *params);
 
-//
+// Time
+long long calculate_time();
+long long get_time(t_params *params);
+
+// Log
+void print_log(t_params *params, int id, char *str);
+
+// Threads
+int make_threads(t_params *params);
+
+// Main
 int main(int ac, char **av);
 
 #endif

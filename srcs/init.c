@@ -63,7 +63,7 @@ t_coder *create_coders(int nb, t_dongle *dongles, t_params *params)
         return (NULL);
     while (i < nb)
     {
-        if (init_coder(nb, i, &coders[i], dongles, params ) != 0)
+        if (init_coder(nb, i, &coders[i], dongles, params) != 0)
         {
             clean_coders(coders, i);
             return(NULL);
@@ -77,19 +77,27 @@ int init_all(t_params *params)
 {
     int nb;
 
+    if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
+        return (1);
+    if (pthread_mutex_init(&params->state_mutex, NULL) != 0)
+    {
+        pthread_mutex_destroy(&params->print_mutex);
+        return (1);
+    }
+    params->start_time = calculate_time();
     nb = params->number_of_coders;
     params->dongles = create_dongles(nb);
     if (!params->dongles)
+    {
+        clean_global_mutex(params);
         return (1);
+    }
     params->coders = create_coders(nb, params->dongles, params);
     if (!params->coders)
         {
+            clean_global_mutex(params);
             clean_dongles(params->dongles, nb);
             return (1);
         }
-    if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
-        return(1);
-    if (pthread_mutex_init(&params->state_mutex, NULL) != 0)
-        return(1);
     return (0);
 }
