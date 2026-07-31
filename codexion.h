@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/07/30 16:22:47 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/31 15:54:00 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,16 @@ void print_log(t_params *params, int id, char *str);
 
 // Threads
 int make_threads(t_params *params);
+
+//Coder action
+int	coder_action(t_coder *coder);
+
+//Dongle
+int    take_dongle(t_coder *coder, t_dongle *dongle);
+int    drop_dongle(t_coder *coder, t_dongle *dongle);
+
+//Utils
+void sleep_until_ms(t_params *params, long long ms_duration);
 
 // Main
 int main(int ac, char **av);

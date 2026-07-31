@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 14:21:35 by rem               #+#    #+#             */
-/*   Updated: 2026/07/30 16:14:33 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/07/31 17:03:07 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(int ac, char **av)
         return(1);
     else
         make_threads(&params);
+    fprintf(stdout, "ok !");
     clean_all(&params);
     return (0);
 }
