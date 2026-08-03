@@ -3,70 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/07/29 14:51:13 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/03 10:47:00 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "codexion.h"
+#include "codexion.h"
 
- static int is_number(char *str)
- {
-    int i;
-
-    i = 0;
-    if (str[i] == '\0')
-        return (1);
-    while (str[i])
-    {
-        if (str[i] < '0' || str[i] > '9')
-            return (1);
-        i++;
-    }
-    return (0);
- }
-
- static int is_int(char *str)
- {
-    if (strlen(str) > 10)
-        return(1);
-    if (strcmp(str, "2147483647") > 0 && strlen(str) == 10)
-        return(1);
-    return (0);
- }
- 
- static int    validation(int ac, char *av[])
- {
-    int i;
-    
-    if (ac != 9)
-        return (1);
-    i = 1;
-    while (i < ac - 1)
-    {
-            if (is_number(av[i]) != 0)
-                return (1);
-            if (is_int(av[i]) != 0)
-                return (1);
-            i++;
-    }
-    if (strcmp(av[i], "fifo") != 0 && strcmp(av[i], "edf") != 0)
-        return (1);
-    return (0);
- }
- 
- int init_params(int ac, char *av[], t_params *params)
+static int	is_number(char *str)
 {
-    if (validation(ac, av) != 0)
-        return (1);
-    params->number_of_coders = atoi(av[1]);
-    params->time_to_burnout = atoi(av[2]);
-    params->time_to_compile = atoi(av[3]);
-    params->time_to_debug = atoi(av[4]);
-    params->time_to_refactor = atoi(av[5]);
-    params->number_of_compiles_required = atoi(av[6]);
-    params->dongle_cooldown = atoi(av[7]);
-    return (0);
+	int	i;
+
+	i = 0;
+	if (str[i] == '\0')
+		return (1);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	is_int(char *str)
+{
+	if (strlen(str) > 10)
+		return (1);
+	if (strcmp(str, "2147483647") > 0 && strlen(str) == 10)
+		return (1);
+	return (0);
+}
+
+static int	validation(int ac, char *av[])
+{
+	int	i;
+
+	if (ac != 9)
+		return (1);
+	i = 1;
+	while (i < ac - 1)
+	{
+		if (is_number(av[i]) != 0)
+			return (1);
+		if (is_int(av[i]) != 0)
+			return (1);
+		i++;
+	}
+	if (strcmp(av[i], "fifo") != 0 && strcmp(av[i], "edf") != 0)
+		return (1);
+	return (0);
+}
+
+int	init_params(int ac, char *av[], t_params *params)
+{
+	if (validation(ac, av) != 0)
+		return (1);
+	params->number_of_coders = atoi(av[1]);
+	params->time_to_burnout = atoi(av[2]);
+	params->time_to_compile = atoi(av[3]);
+	params->time_to_debug = atoi(av[4]);
+	params->time_to_refactor = atoi(av[5]);
+	params->number_of_compiles_required = atoi(av[6]);
+	params->dongle_cooldown = atoi(av[7]);
+	return (0);
 }
