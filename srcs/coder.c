@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/03 10:13:22 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/03 19:15:52 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int	coder_action(t_coder *coder)
 		if (coder_take_dongle(coder) != 0)
 			return (1);
 		print_log(coder->params, coder->id, "is compiling");
+		if (pthread_mutex_lock(&coder->mutex) != 0)
+			return (1);
+		coder->last_compile_start = get_time(coder->params);
+		pthread_mutex_unlock(&coder->mutex);
 		sleep_until_ms(coder->params, coder->params->time_to_compile);
 		if (coder_drop_dongle(coder) != 0)
 			return (1);

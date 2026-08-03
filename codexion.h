@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/03 10:55:58 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:19:02 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int			init_all(t_params *params);
 // Time
 long long	calculate_time(void);
 long long	get_time(t_params *params);
+struct timespec	get_future_timespec(long milliseconds);
 
 // Log
 void		print_log(t_params *params, int id, char *str);
