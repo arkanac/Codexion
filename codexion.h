@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/03 18:19:02 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/04 10:12:13 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ typedef struct s_params
 	int				number_of_compiles_required;
 	int				dongle_cooldown;
 	long long		start_time;
+	int				is_running;
 	t_scheduler		scheduler;
 	t_dongle		*dongles;
 	t_coder			*coders;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	state_mutex;
+	pthread_t		monitor;
 }	t_params;
 
 typedef struct s_dongle
@@ -89,6 +91,9 @@ void		print_log(t_params *params, int id, char *str);
 // Threads
 int			make_threads(t_params *params);
 
+// Monitoring
+void 		*monitor(void *arg);
+
 //Coder action
 int			coder_action(t_coder *coder);
 
@@ -98,6 +103,7 @@ int			drop_dongle(t_coder *coder, t_dongle *dongle);
 
 //Utils
 void		sleep_until_ms(t_params *params, long long ms_duration);
+int			is_it_running(t_params *params);
 
 // Main
 int			main(int ac, char **av);

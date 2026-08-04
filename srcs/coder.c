@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/03 19:15:52 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/04 10:06:39 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	coder_drop_dongle(t_coder *coder)
 
 int	coder_action(t_coder *coder)
 {
-	while (coder->compile_count < coder->params->number_of_compiles_required)
+	while (coder->compile_count < coder->params->number_of_compiles_required
+		&& is_it_running(coder->params))
 	{
 		if (coder_take_dongle(coder) != 0)
 			return (1);
