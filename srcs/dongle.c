@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:39 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/04 11:51:09 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/04 14:55:14 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	drop_dongle(t_coder *coder, t_dongle *dongle)
 	dongle->owner = -1;
 	dongle->available_at = (get_time(coder->params)
 			+ coder->params->dongle_cooldown);
-	print_log(coder->params, coder->id, "has dropped a dongle");
 	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
 	return (0);
