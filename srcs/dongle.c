@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:39 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/03 19:16:22 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/04 11:51:09 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	take_dongle(t_coder *coder, t_dongle *dongle)
 
 	if (pthread_mutex_lock(&dongle->mutex) != 0)
 		return (1);
-	while (dongle->owner != -1 || get_time(coder->params) < dongle->available_at)
+	while ((dongle->owner != -1 || get_time(coder->params) < dongle->available_at) && is_it_running(coder->params))
 	{
 		if (dongle->owner == -1 && get_time(coder->params) < dongle->available_at)
 		{
@@ -27,6 +27,11 @@ int	take_dongle(t_coder *coder, t_dongle *dongle)
 		}
 		else
 			pthread_cond_wait(&dongle->cond, &dongle->mutex);
+	}
+	if (!is_it_running(coder->params))
+	{
+    	pthread_mutex_unlock(&dongle->mutex);
+    	return (1);
 	}
 	dongle->owner = coder->id;
 	pthread_mutex_unlock(&dongle->mutex);
