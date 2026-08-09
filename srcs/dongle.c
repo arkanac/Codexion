@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:39 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/04 14:55:14 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/09 13:15:51 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	take_dongle(t_coder *coder, t_dongle *dongle)
 	}
 	dongle->owner = coder->id;
 	pthread_mutex_unlock(&dongle->mutex);
+	print_log(coder->params, coder->id, "has taken a dongle");
 	return (0);
 }
 

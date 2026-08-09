@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 14:21:35 by rem               #+#    #+#             */
-/*   Updated: 2026/08/03 10:15:51 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/09 17:00:00 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int ac, char **av)
 		return (1);
 	else
 		make_threads(&params);
-	fprintf(stdout, "ok !");
 	clean_all(&params);
 	return (0);
 }

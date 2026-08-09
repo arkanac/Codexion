@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/04 15:44:05 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/09 13:03:47 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int scheduler()
+// int scheduler()
