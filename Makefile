@@ -1,7 +1,7 @@
 NAME	= codexion
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -pthread
+CFLAGS	= -g3 -Wall -Wextra -Werror -pthread
 INCLUDES = -I.
 
 SRCS	= srcs/cleaning.c srcs/coder.c srcs/codexion.c srcs/dongle.c \

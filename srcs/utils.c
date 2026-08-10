@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:53 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 11:30:30 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 13:41:49 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,19 @@ int	is_it_running(t_params *params)
 	return (running);
 }
 
-void	ft_swap(int a, int b)
+void	ft_swap(int *a, int *b)
 {
 	int c;
 	
-	c = a;
-	a = b;
-	b = c;
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+int	not_in_queue(t_coder *coder, t_dongle *dongle)
+{
+	if (dongle->queue[0] != coder->id && dongle->queue[1] != coder->id)
+		return(0);
+	return (1);
 }
 

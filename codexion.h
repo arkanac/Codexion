@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/10 11:45:54 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 14:34:33 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,13 @@ int			drop_dongle(t_coder *coder, t_dongle *dongle);
 
 //Scheduler
 int			scheduler(t_params *params, t_coder *coder);
-void		add_to_queue(t_coder *coder);
-void		remove_from_queue(t_coder *coder);
+int		add_to_queue(t_coder *coder, t_dongle *dongle);
+int		remove_from_queue(t_coder *coder, t_dongle *dongle);
 
 //Utils
 int			is_it_running(t_params *params);
-void		ft_swap(int a, int b);
+void		ft_swap(int *a, int *b);
+int			not_in_queue(t_coder *coder, t_dongle *dongle);
 
 // Main
 int			main(int ac, char **av);
