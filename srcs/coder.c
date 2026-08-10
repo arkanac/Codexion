@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 14:15:01 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 18:23:05 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@ int	coder_take_dongle(t_coder *coder)
 {
 	if (coder->left_dongle->id < coder->right_dongle->id)
 	{
+		scheduler(coder->params, coder, coder->left_dongle);
 		if (take_dongle(coder, coder->left_dongle) != 0)
 			return (1);
+		scheduler(coder->params, coder, coder->right_dongle);
 		if (take_dongle(coder, coder->right_dongle) != 0)
 			return (1);
 	}
 	else
 	{
+		scheduler(coder->params, coder, coder->right_dongle);
 		if (take_dongle(coder, coder->right_dongle) != 0)
 			return (1);
+		scheduler(coder->params, coder, coder->left_dongle);
 		if (take_dongle(coder, coder->left_dongle) != 0)
 			return (1);
 	}
@@ -45,7 +49,6 @@ int	coder_action(t_coder *coder)
 	while (coder->compile_count < coder->params->number_of_compiles_required
 		&& is_it_running(coder->params))
 	{
-		scheduler(coder->params, coder);
 		if (coder_take_dongle(coder) != 0)
 			return (1);
 		print_log(coder->params, coder->id, "is compiling");

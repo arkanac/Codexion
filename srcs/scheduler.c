@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 16:34:01 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 18:37:27 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	add_to_queue(t_coder *coder, t_dongle *dongle)
 
 int	remove_from_queue(t_coder *coder, t_dongle *dongle)
 {
-	if (pthread_mutex_lock(&dongle->mutex) != 0)
-		return (1);
 	if (dongle->queue[1] != 0 && dongle->queue[1] != coder->id )
 	{
 		ft_swap(&dongle->queue[1], &dongle->queue[0]);
@@ -41,26 +39,19 @@ int	remove_from_queue(t_coder *coder, t_dongle *dongle)
 	}
 	else
 		coder->params->dongles[dongle->id].queue[0] = 0;
-	pthread_mutex_unlock(&dongle->mutex);
 	return (0);
 }
 
-void	fifo_way(t_coder *coder)
+void	fifo_way(t_coder *coder, t_dongle *dongle)
 {
-	add_to_queue(coder, coder->left_dongle);
-	add_to_queue(coder, coder->right_dongle);
-	printf("Codeur %d inséré, left dongle %d queue: [%d, %d] | Right dongle %d queue: [%d, %d]\n",
-    coder->id,
-    coder->left_dongle->id, coder->left_dongle->queue[0], coder->left_dongle->queue[1],
-    coder->right_dongle->id, coder->right_dongle->queue[0], coder->right_dongle->queue[1]);
-	
+	add_to_queue(coder, dongle);
 }
 
-int	scheduler(t_params *params, t_coder *coder)
+int	scheduler(t_params *params, t_coder *coder, t_dongle *dongle)
 {
 	if (params->scheduler == FIFO)
 	{
-		fifo_way(coder);
+		fifo_way(coder, dongle);
 	}
 	return(0);
 }
