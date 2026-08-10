@@ -6,7 +6,7 @@ INCLUDES = -I.
 
 SRCS	= srcs/cleaning.c srcs/coder.c srcs/codexion.c srcs/dongle.c \
 		  srcs/init.c srcs/monitor.c srcs/params.c srcs/scheduler.c \
-		  srcs/threads.c srcs/utils.c
+		  srcs/threads.c srcs/time.c srcs/utils.c
 OBJS	= $(SRCS:.c=.o)
 
 all: $(NAME)

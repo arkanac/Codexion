@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/04 14:38:33 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 11:41:32 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	coder_action(t_coder *coder)
 		sleep_until_ms(coder->params, coder->params->time_to_debug);
 		print_log(coder->params, coder->id, "is refactoring");
 		sleep_until_ms(coder->params, coder->params->time_to_refactor);
+		scheduler(coder->params, coder);
 		pthread_mutex_lock(&coder->mutex);
 		coder->compile_count++;
 		pthread_mutex_unlock(&coder->mutex);

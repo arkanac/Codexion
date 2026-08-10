@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:25 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/03 10:07:11 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 10:45:41 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	clean_dongles(t_dongle *dongles, int count)
 	i = 0;
 	while (i < count)
 	{
+		free(dongles[i].queue);
 		pthread_cond_destroy(&dongles[i].cond);
 		pthread_mutex_destroy(&dongles[i].mutex);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/03 11:04:03 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/10 11:19:13 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	init_dongle(int id, t_dongle *dongle)
 	dongle->id = id;
 	dongle->owner = -1;
 	dongle->available_at = 0;
+	dongle->queue = malloc(sizeof(t_coder) * 2);
+	if (!dongle->queue)
+		return (1);
+	memset(dongle->queue, 0, 2);
 	if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
 		return (1);
 	if (pthread_cond_init(&dongle->cond, NULL) != 0)

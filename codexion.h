@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/04 10:12:13 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/10 11:45:54 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_dongle
 	pthread_cond_t	cond;
 	int				id;
 	int				owner;
+	int				*queue;
 	long long		available_at;
 }	t_dongle;
 
@@ -84,6 +85,7 @@ int			init_all(t_params *params);
 long long	calculate_time(void);
 long long	get_time(t_params *params);
 struct timespec	get_future_timespec(long milliseconds);
+void		sleep_until_ms(t_params *params, long long ms_duration);
 
 // Log
 void		print_log(t_params *params, int id, char *str);
@@ -101,9 +103,14 @@ int			coder_action(t_coder *coder);
 int			take_dongle(t_coder *coder, t_dongle *dongle);
 int			drop_dongle(t_coder *coder, t_dongle *dongle);
 
+//Scheduler
+int			scheduler(t_params *params, t_coder *coder);
+void		add_to_queue(t_coder *coder);
+void		remove_from_queue(t_coder *coder);
+
 //Utils
-void		sleep_until_ms(t_params *params, long long ms_duration);
 int			is_it_running(t_params *params);
+void		ft_swap(int a, int b);
 
 // Main
 int			main(int ac, char **av);

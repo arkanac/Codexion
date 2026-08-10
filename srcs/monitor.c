@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:16:05 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/09 16:27:23 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/10 11:30:23 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "codexion.h"
 
-int	is_it_running(t_params *params)
-{
-	int	running;
-
-	if (pthread_mutex_lock(&params->state_mutex) != 0)
-		return (0);
-	running = params->is_running;
-	pthread_mutex_unlock(&params->state_mutex);
-	return (running);
-}
 
 static int compile_count_checker(t_params *params, int nb)
 {
