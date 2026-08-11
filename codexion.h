@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/10 18:24:12 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/11 15:57:16 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_params		t_params;
 typedef struct s_dongle		t_dongle;
 typedef struct s_coder		t_coder;
+typedef struct s_queue		t_queue;
 
 typedef enum e_scheduler
 {
@@ -55,7 +56,7 @@ typedef struct s_dongle
 	pthread_cond_t	cond;
 	int				id;
 	int				owner;
-	int				*queue;
+	t_queue			*queue;
 	long long		available_at;
 }	t_dongle;
 
@@ -70,6 +71,12 @@ typedef struct s_coder
 	int					compile_count;
 	long long			last_compile_start;
 }	t_coder;
+
+typedef struct s_queue
+{
+	int 		id;
+	long long	last_compile_start;
+} t_queue;
 
 // Cleaning
 void		clean_dongles(t_dongle *dongles, int count);

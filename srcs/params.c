@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/08/04 09:49:29 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/11 17:36:36 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int	init_params(int ac, char *av[], t_params *params)
 	params->time_to_refactor = atoi(av[5]);
 	params->number_of_compiles_required = atoi(av[6]);
 	params->dongle_cooldown = atoi(av[7]);
+	if (strcmp(av[8], "fifo") == 0)
+    	params->scheduler = FIFO;
+	else
+    	params->scheduler = EDF;
 	params->is_running = 1;
 	return (0);
 }

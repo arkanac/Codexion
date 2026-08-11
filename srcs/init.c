@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 18:27:36 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/11 15:51:54 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	init_dongle(int id, t_dongle *dongle)
 	dongle->id = id;
 	dongle->owner = -1;
 	dongle->available_at = 0;
-	dongle->queue = malloc(sizeof(int) * 2);
+	dongle->queue = malloc(sizeof(t_queue) * 2);
 	if (!dongle->queue)
 		return (1);
-	memset(dongle->queue, 0, sizeof(int) * 2);
+	memset(dongle->queue, 0, sizeof(t_queue) * 2);
 	if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
 		return (1);
 	if (pthread_cond_init(&dongle->cond, NULL) != 0)

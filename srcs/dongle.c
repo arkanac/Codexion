@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:39 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 18:36:19 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/11 18:04:47 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	take_dongle(t_coder *coder, t_dongle *dongle)
 
 	if (pthread_mutex_lock(&dongle->mutex) != 0)
 		return (1);
-	while ((dongle->owner != -1 || get_time(coder->params) < dongle->available_at || dongle->queue[0] != coder->id) && is_it_running(coder->params))
+	while ((dongle->owner != -1 || get_time(coder->params) < dongle->available_at || dongle->queue[0].id != coder->id) && is_it_running(coder->params))
 	{
 		if (dongle->owner == -1 && get_time(coder->params) < dongle->available_at)
 		{
@@ -33,7 +33,7 @@ int	take_dongle(t_coder *coder, t_dongle *dongle)
     	pthread_mutex_unlock(&dongle->mutex);
     	return (1);
 	}
-	if (dongle->queue[0] != -1)
+	if (dongle->queue[0].id != -1)
 	{
 		dongle->owner = coder->id;
 		remove_from_queue(coder, dongle);
@@ -48,8 +48,7 @@ int	drop_dongle(t_coder *coder, t_dongle *dongle)
 {
 	if (pthread_mutex_lock(&dongle->mutex) != 0)
 		return (1);
-	
-	dongle->available_at = (get_time(coder->params)
+	dongle->available_at = (get_time(coder->params) 
 			+ coder->params->dongle_cooldown);
 	dongle->owner = -1;
 	pthread_cond_broadcast(&dongle->cond);

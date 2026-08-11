@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:53 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 13:41:49 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:58:17 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_swap(int *a, int *b)
 
 int	not_in_queue(t_coder *coder, t_dongle *dongle)
 {
-	if (dongle->queue[0] != coder->id && dongle->queue[1] != coder->id)
+	if (dongle->queue[0].id != coder->id && dongle->queue[1].id != coder->id)
 		return(0);
 	return (1);
 }
