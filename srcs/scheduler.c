@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 14:12:03 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 19:00:02 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	edf_queue_move(t_coder *coder, t_dongle *dongle, long long deadline)
 		dongle->queue[0].id = coder->id;
 		dongle->queue[0].last_compile_start = deadline;
 	}
-	else if (deadline < dongle->queue[0].last_compile_start)
+	else if (deadline < dongle->queue[0].last_compile_start
+		|| (deadline == dongle->queue[0].last_compile_start
+        	&& coder->id < dongle->queue[0].id))
 	{
 		dongle->queue[1] = dongle->queue[0];
 		dongle->queue[0].id = coder->id;

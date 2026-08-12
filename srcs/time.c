@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 11:27:18 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 13:31:48 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 18:41:09 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	sleep_until_ms(t_params *params, long long ms_duration)
 	long long	start;
 
 	start = get_time(params);
-	while (get_time(params) - start < ms_duration)
+	while (get_time(params) - start < ms_duration && is_it_running(params))
 		usleep(500);
 }
