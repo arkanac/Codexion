@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:50 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/04 10:13:45 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 13:31:59 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	make_threads(t_params *params)
 	j = 0;
 	while (j < params->number_of_coders)
 	{
-		
 		if (pthread_join(params->coders[j].thread, NULL) != 0)
 			return (1);
 		j++;

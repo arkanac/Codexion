@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 11:27:18 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 11:27:53 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 13:31:48 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ struct timespec	get_future_timespec(long milliseconds)
 	struct timespec	ts;
 
 	gettimeofday(&now, NULL);
-
 	ts.tv_sec = now.tv_sec + (milliseconds / 1000);
 	ts.tv_nsec = (long)now.tv_usec * 1000 + (milliseconds % 1000) * 1000000;
 	ts.tv_sec += ts.tv_nsec / 1000000000;
 	ts.tv_nsec %= 1000000000;
-
-	return ts;
+	return (ts);
 }
 
 long long	get_time(t_params *params)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/11 15:51:54 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 13:24:47 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_dongle	*create_dongles(int nb)
 int	init_coder(int i, t_coder *coder, t_dongle *dongles, t_params *params)
 {
 	int	id;
-	int nb;
+	int	nb;
 
 	id = i + 1;
 	nb = params->number_of_coders;

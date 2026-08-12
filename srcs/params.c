@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:07:11 by rem               #+#    #+#             */
-/*   Updated: 2026/08/11 17:36:36 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 13:24:30 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	init_params(int ac, char *av[], t_params *params)
 	params->number_of_compiles_required = atoi(av[6]);
 	params->dongle_cooldown = atoi(av[7]);
 	if (strcmp(av[8], "fifo") == 0)
-    	params->scheduler = FIFO;
+		params->scheduler = FIFO;
 	else
-    	params->scheduler = EDF;
+		params->scheduler = EDF;
 	params->is_running = 1;
 	return (0);
 }

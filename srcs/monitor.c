@@ -6,22 +6,21 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:16:05 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 11:07:16 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 13:33:19 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "codexion.h"
 
-
-static int compile_count_checker(t_params *params, int nb)
+static int	compile_count_checker(t_params *params, int nb)
 {
-	int count;
-	
+	int	count;
+
 	count = params->coders[nb].compile_count;
 	if (count >= params->number_of_compiles_required)
 		return (1);
-	else return (0);
+	else
+		return (0);
 }
 
 static void	stop_all_coders(t_params *params)

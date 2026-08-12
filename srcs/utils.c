@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:53 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 11:53:48 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 13:22:53 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	is_it_running(t_params *params)
 int	not_in_queue(t_coder *coder, t_dongle *dongle)
 {
 	if (dongle->queue[0].id != coder->id && dongle->queue[1].id != coder->id)
-		return(0);
+		return (0);
 	return (1);
 }
-

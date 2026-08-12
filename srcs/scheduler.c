@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/11 17:52:03 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 14:12:03 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,8 @@ int	fifo_way(t_coder *coder, t_dongle *dongle)
 	return (0);
 }
 
-int	edf_way(t_params *params, t_coder *coder, t_dongle *dongle)
+void	edf_queue_move(t_coder *coder, t_dongle *dongle, long long deadline)
 {
-	long long deadline;
-
-	if (pthread_mutex_lock(&coder->mutex) != 0)
-		return (1);
-	deadline = coder->last_compile_start + params->time_to_burnout;
-	pthread_mutex_unlock(&coder->mutex);
-	if (pthread_mutex_lock(&dongle->mutex) != 0)
-	return (1);
-	if ((not_in_queue(coder, dongle) != 0))
-	{
-		pthread_mutex_unlock(&dongle->mutex);
-		return (0);
-	}
 	if (dongle->queue[0].id == 0)
 	{
 		dongle->queue[0].id = coder->id;
@@ -73,8 +60,26 @@ int	edf_way(t_params *params, t_coder *coder, t_dongle *dongle)
 		dongle->queue[1].id = coder->id;
 		dongle->queue[1].last_compile_start = deadline;
 	}
+}
+
+int	edf_way(t_params *params, t_coder *coder, t_dongle *dongle)
+{
+	long long	deadline;
+
+	if (pthread_mutex_lock(&coder->mutex) != 0)
+		return (1);
+	deadline = coder->last_compile_start + params->time_to_burnout;
+	pthread_mutex_unlock(&coder->mutex);
+	if (pthread_mutex_lock(&dongle->mutex) != 0)
+		return (1);
+	if ((not_in_queue(coder, dongle) != 0))
+	{
+		pthread_mutex_unlock(&dongle->mutex);
+		return (0);
+	}
+	edf_queue_move(coder, dongle, deadline);
 	pthread_mutex_unlock(&dongle->mutex);
-	return(0);
+	return (0);
 }
 
 int	scheduler(t_params *params, t_coder *coder, t_dongle *dongle)
@@ -83,5 +88,5 @@ int	scheduler(t_params *params, t_coder *coder, t_dongle *dongle)
 		fifo_way(coder, dongle);
 	else if (params->scheduler == EDF)
 		edf_way(params, coder, dongle);
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/12 11:53:52 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 13:59:03 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_params		t_params;
 typedef struct s_dongle		t_dongle;
 typedef struct s_coder		t_coder;
 typedef struct s_queue		t_queue;
+typedef struct timespec		t_timespec;
 
 typedef enum e_scheduler
 {
@@ -74,9 +75,9 @@ typedef struct s_coder
 
 typedef struct s_queue
 {
-	int 		id;
+	int			id;
 	long long	last_compile_start;
-} t_queue;
+}	t_queue;
 
 // Cleaning
 void		clean_dongles(t_dongle *dongles, int count);
@@ -91,9 +92,8 @@ int			init_all(t_params *params);
 // Time
 long long	calculate_time(void);
 long long	get_time(t_params *params);
-struct timespec	get_future_timespec(long milliseconds);
 void		sleep_until_ms(t_params *params, long long ms_duration);
-
+t_timespec	get_future_timespec(long milliseconds);
 // Log
 void		print_log(t_params *params, int id, char *str);
 
@@ -101,7 +101,7 @@ void		print_log(t_params *params, int id, char *str);
 int			make_threads(t_params *params);
 
 // Monitoring
-void 		*monitor(void *arg);
+void		*monitor(void *arg);
 
 //Coder action
 int			coder_action(t_coder *coder);
@@ -112,8 +112,8 @@ int			drop_dongle(t_coder *coder, t_dongle *dongle);
 
 //Scheduler
 int			scheduler(t_params *params, t_coder *coder, t_dongle *dongle);
-int		add_to_queue(t_coder *coder, t_dongle *dongle);
-int		remove_from_queue(t_coder *coder, t_dongle *dongle);
+int			add_to_queue(t_coder *coder, t_dongle *dongle);
+int			remove_from_queue(t_coder *coder, t_dongle *dongle);
 
 //Utils
 int			is_it_running(t_params *params);
