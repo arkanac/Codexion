@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 18:23:05 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 11:39:52 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	coder_drop_dongle(t_coder *coder)
 int	coder_action(t_coder *coder)
 {
 	while (coder->compile_count < coder->params->number_of_compiles_required
-		&& is_it_running(coder->params))
+		&& coder->params->is_running == 1)
 	{
 		if (coder_take_dongle(coder) != 0)
 			return (1);
@@ -57,16 +57,18 @@ int	coder_action(t_coder *coder)
 		coder->last_compile_start = get_time(coder->params);
 		pthread_mutex_unlock(&coder->mutex);
 		sleep_until_ms(coder->params, coder->params->time_to_compile);
-		if (coder_drop_dongle(coder) != 0)
-			return (1);
-		print_log(coder->params, coder->id, "is debugging");
-		sleep_until_ms(coder->params, coder->params->time_to_debug);
-		print_log(coder->params, coder->id, "is refactoring");
-		sleep_until_ms(coder->params, coder->params->time_to_refactor);
-		
+		if (coder->params->is_running == 1)
+		{
+			if (coder_drop_dongle(coder) != 0)
+				return (1);
+			print_log(coder->params, coder->id, "is debugging");
+			sleep_until_ms(coder->params, coder->params->time_to_debug);
+			print_log(coder->params, coder->id, "is refactoring");
+			sleep_until_ms(coder->params, coder->params->time_to_refactor);
 		pthread_mutex_lock(&coder->mutex);
 		coder->compile_count++;
 		pthread_mutex_unlock(&coder->mutex);
+		}
 	}
 	return (0);
 }

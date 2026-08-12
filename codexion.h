@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/11 15:57:16 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 11:53:52 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int		remove_from_queue(t_coder *coder, t_dongle *dongle);
 
 //Utils
 int			is_it_running(t_params *params);
-void		ft_swap(int *a, int *b);
 int			not_in_queue(t_coder *coder, t_dongle *dongle);
 
 // Main

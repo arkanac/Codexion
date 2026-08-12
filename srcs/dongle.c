@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:39 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/11 18:04:47 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/12 11:18:32 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	take_dongle(t_coder *coder, t_dongle *dongle)
 		pthread_cond_broadcast(&dongle->cond);
 	}
 	pthread_mutex_unlock(&dongle->mutex);
-	print_log(coder->params, coder->id, "has taken a dongle");
+	// print_log(coder->params, coder->id, "has taken a dongle");
+	printf("Coder %d a taken dongle %d\n", coder->id, dongle->id);
 	return (0);
 }
 
@@ -51,6 +52,7 @@ int	drop_dongle(t_coder *coder, t_dongle *dongle)
 	dongle->available_at = (get_time(coder->params) 
 			+ coder->params->dongle_cooldown);
 	dongle->owner = -1;
+	printf("Coder %d a dropped dongle %d\n", coder->id, dongle->id);
 	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
 	return (0);

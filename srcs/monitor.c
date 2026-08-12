@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:16:05 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 11:30:23 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/12 11:07:16 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	*monitor(void *arg)
 			stop_all_coders(params);
 			return (NULL);
 		}
-		usleep(1000);
+		usleep(10);
 	}
 	return (NULL);
 }
