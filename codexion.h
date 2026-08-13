@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/12 13:59:03 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/13 17:11:47 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ typedef enum e_scheduler
 	FIFO,
 	EDF
 }	t_scheduler;
+
+typedef enum e_error
+{
+	ERR_ARGS,
+	ERR_SCHEDULER,
+	ERR_MALLOC,
+	ERR_MUTEX_INIT,
+	ERR_COND_INIT
+}	t_error;
 
 typedef struct s_params
 {
@@ -85,6 +94,9 @@ void		clean_coders(t_coder *coders, int count);
 void		clean_global_mutex(t_params *params);
 void		clean_all(t_params *params);
 
+//Error
+int			handle_error(t_error code);
+
 // Init
 int			init_params(int ac, char *av[], t_params *params);
 int			init_all(t_params *params);
@@ -114,6 +126,8 @@ int			drop_dongle(t_coder *coder, t_dongle *dongle);
 int			scheduler(t_params *params, t_coder *coder, t_dongle *dongle);
 int			add_to_queue(t_coder *coder, t_dongle *dongle);
 int			remove_from_queue(t_coder *coder, t_dongle *dongle);
+
+
 
 //Utils
 int			is_it_running(t_params *params);

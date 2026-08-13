@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 13:24:47 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/13 17:10:07 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ int	init_dongle(int id, t_dongle *dongle)
 	dongle->available_at = 0;
 	dongle->queue = malloc(sizeof(t_queue) * 2);
 	if (!dongle->queue)
-		return (1);
+		return (handle_error(ERR_MALLOC));
 	memset(dongle->queue, 0, sizeof(t_queue) * 2);
 	if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
-		return (1);
+	{
+		free(dongle->queue);
+		return (handle_error(ERR_MUTEX_INIT));
+	}
 	if (pthread_cond_init(&dongle->cond, NULL) != 0)
 	{
 		pthread_mutex_destroy(&dongle->mutex);
-		return (1);
+		return (handle_error(ERR_COND_INIT));
 	}
 	return (0);
 }
@@ -39,7 +42,10 @@ t_dongle	*create_dongles(int nb)
 	i = 0;
 	dongles = malloc(sizeof(t_dongle) * (nb));
 	if (!dongles)
+	{
+		handle_error(ERR_MALLOC);
 		return (NULL);
+	}
 	while (i < nb)
 	{
 		if (init_dongle(i, &dongles[i]) != 0)
@@ -60,7 +66,7 @@ int	init_coder(int i, t_coder *coder, t_dongle *dongles, t_params *params)
 	id = i + 1;
 	nb = params->number_of_coders;
 	if (pthread_mutex_init(&coder->mutex, NULL) != 0)
-		return (1);
+		return (handle_error(ERR_MUTEX_INIT));
 	coder->id = id;
 	coder->compile_count = 0;
 	coder->last_compile_start = 0;
@@ -78,7 +84,10 @@ t_coder	*create_coders(int nb, t_dongle *dongles, t_params *params)
 	i = 0;
 	coders = malloc(sizeof(t_coder) * (nb));
 	if (!coders)
+	{
+		handle_error(ERR_MALLOC);
 		return (NULL);
+	}
 	while (i < nb)
 	{
 		if (init_coder(i, &coders[i], dongles, params) != 0)
@@ -96,11 +105,11 @@ int	init_all(t_params *params)
 	int	nb;
 
 	if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
-		return (1);
+		return (handle_error(ERR_MUTEX_INIT));
 	if (pthread_mutex_init(&params->state_mutex, NULL) != 0)
 	{
 		pthread_mutex_destroy(&params->print_mutex);
-		return (1);
+		return (handle_error(ERR_MUTEX_INIT));
 	}
 	params->start_time = calculate_time();
 	nb = params->number_of_coders;
