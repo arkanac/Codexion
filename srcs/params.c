@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:55:57 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/14 14:56:00 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/14 19:53:17 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	validation(int ac, char *av[])
 			return (handle_error(ERR_ARGS));
 		i++;
 	}
-	if (av[1])
 	if (strcmp(av[i], "fifo") != 0 && strcmp(av[i], "edf") != 0)
 		return (handle_error(ERR_SCHEDULER));
 	return (0);
