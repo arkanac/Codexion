@@ -9,12 +9,12 @@ SRCS	= srcs/cleaning.c srcs/coder.c srcs/codexion.c srcs/dongle.c \
 		  srcs/threads.c srcs/time.c srcs/utils.c srcs/error.c
 OBJS	= $(SRCS:.c=.o)
 
-all: $(NAME)
+all: $(NAME) 
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c codexion.h
+%.o: %.c codexion.h Makefile
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

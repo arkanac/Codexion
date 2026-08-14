@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 18:49:35 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/14 11:27:52 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	coder_take_dongle(t_coder *coder)
 {
-	if (coder->left_dongle->id < coder->right_dongle->id)
+	if (coder->left_dongle->id < coder->right_dongle->id && (coder->id % 2 == 0))
 	{
 		scheduler(coder->params, coder, coder->left_dongle);
 		if (take_dongle(coder, coder->left_dongle) != 0)
