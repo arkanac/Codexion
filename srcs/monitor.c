@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:16:05 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/12 16:40:09 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/14 15:00:09 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	compile_count_checker(t_params *params, int nb)
 		return (0);
 }
 
-static void	stop_all_coders(t_params *params)
+void	stop_all_coders(t_params *params)
 {
 	int	j;
 
@@ -51,7 +51,8 @@ static int	check_coder_status(t_params *params, int i, int *enough_compilation)
 	finished = compile_count_checker(params, i);
 	*enough_compilation += finished;
 	pthread_mutex_unlock(&params->coders[i].mutex);
-	if (finished == 0 && (get_time(params) - coder_time) > params->time_to_burnout)
+	if (finished == 0 && (get_time(params) - coder_time)
+		> params->time_to_burnout)
 	{
 		print_log(params, params->coders[i].id, "burned out");
 		stop_all_coders(params);

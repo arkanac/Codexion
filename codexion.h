@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/23 17:05:37 by rem               #+#    #+#             */
-/*   Updated: 2026/08/14 10:12:03 by repichan         ###   ########.fr       */
+/*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
+/*   Updated: 2026/08/14 16:30:28 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ typedef enum e_scheduler
 typedef enum e_error
 {
 	ERR_ARGS,
+	ERR_NB_ARGS,
 	ERR_SCHEDULER,
 	ERR_MALLOC,
 	ERR_MUTEX_INIT,
-	ERR_COND_INIT
+	ERR_THREAD_INIT,
+	ERR_COND_INIT,
+	ERR_THREAD_JOIN
 }	t_error;
 
 typedef struct s_params
@@ -107,18 +110,20 @@ long long	get_time(t_params *params);
 void		sleep_until_ms(t_params *params, long long ms_duration);
 t_timespec	get_future_timespec(long milliseconds);
 // Log
-void		print_log(t_params *params, int id, char *str);
+int		print_log(t_params *params, int id, char *str);
 
 // Threads
 int			make_threads(t_params *params);
 
 // Monitoring
 void		*monitor(void *arg);
+void		stop_all_coders(t_params *params);
 
 //Coder action
 int			coder_action(t_coder *coder);
 
 //Dongle
+int 		take_dongles(t_coder *coder);
 int			take_dongle(t_coder *coder, t_dongle *dongle);
 int			drop_dongle(t_coder *coder, t_dongle *dongle);
 

@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/14 11:27:52 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/14 16:53:37 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	coder_take_dongle(t_coder *coder)
 {
-	if (coder->left_dongle->id < coder->right_dongle->id && (coder->id % 2 == 0))
+	if (coder->left_dongle->id < coder->right_dongle->id)
 	{
 		scheduler(coder->params, coder, coder->left_dongle);
 		if (take_dongle(coder, coder->left_dongle) != 0)
@@ -59,12 +59,8 @@ int	coder_action(t_coder *coder)
 		sleep_until_ms(coder->params, coder->params->time_to_compile);
 		if (coder_drop_dongle(coder) != 0)
 			return (1);
-		if (!is_it_running(coder->params))
-			return (0);
 		print_log(coder->params, coder->id, "is debugging");
 		sleep_until_ms(coder->params, coder->params->time_to_debug);
-		if (!is_it_running(coder->params))
-    		return (0);
 		print_log(coder->params, coder->id, "is refactoring");
 		sleep_until_ms(coder->params, coder->params->time_to_refactor);
 		pthread_mutex_lock(&coder->mutex);
