@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:53 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/14 14:08:26 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/17 16:37:14 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 int	print_log(t_params *params, int id, char *str)
 {
 	long long	now_time;
-
-	if (!is_it_running(params))
-		return (1);
+	
 	now_time = get_time(params);
 	pthread_mutex_lock(&params->print_mutex);
+	if (!is_it_running(params))
+	{
+		pthread_mutex_unlock(&params->print_mutex);
+		return (1);
+	}
+	
 	fprintf(stdout, "%lld %d %s\n", now_time, id, str);
 	pthread_mutex_unlock(&params->print_mutex);
 	return (0);
