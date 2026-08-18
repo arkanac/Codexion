@@ -3,92 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/14 14:02:30 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/18 22:53:52 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	remove_from_queue(t_coder *coder, t_dongle *dongle)
+static int	has_priority(t_params *params, t_coder *a, t_coder *b)
 {
-	if (dongle->queue[0].id == coder->id)
-	{
-		dongle->queue[0] = dongle->queue[1];
-		memset(&dongle->queue[1], 0, sizeof(t_queue));
-	}
-	else if (dongle->queue[1].id == coder->id)
-		memset(&dongle->queue[1], 0, sizeof(t_queue));
-	return (0);
-}
+	long long	dl_a;
+	long long	dl_b;
 
-int	fifo_way(t_coder *coder, t_dongle *dongle)
-{
-	if (pthread_mutex_lock(&dongle->mutex) != 0)
-		return (1);
-	if ((not_in_queue(coder, dongle) != 0))
-	{
-		pthread_mutex_unlock(&dongle->mutex);
-		return (0);
-	}
-	if (dongle->queue[0].id == 0)
-		dongle->queue[0].id = coder->id;
-	else
-		if (dongle->queue[1].id == 0 && dongle->queue[1].id != coder->id)
-			dongle->queue[1].id = coder->id;
-	pthread_mutex_unlock(&dongle->mutex);
-	return (0);
-}
-
-void	edf_queue_move(t_coder *coder, t_dongle *dongle, long long deadline)
-{
-	if (dongle->queue[0].id == 0)
-	{
-		dongle->queue[0].id = coder->id;
-		dongle->queue[0].last_compile_start = deadline;
-	}
-	else if (deadline < dongle->queue[0].last_compile_start
-		|| (deadline == dongle->queue[0].last_compile_start
-			&& coder->id < dongle->queue[0].id))
-	{
-		dongle->queue[1] = dongle->queue[0];
-		dongle->queue[0].id = coder->id;
-		dongle->queue[0].last_compile_start = deadline;
-	}
-	else
-	{
-		dongle->queue[1].id = coder->id;
-		dongle->queue[1].last_compile_start = deadline;
-	}
-}
-
-int	edf_way(t_params *params, t_coder *coder, t_dongle *dongle)
-{
-	long long	deadline;
-
-	if (pthread_mutex_lock(&coder->mutex) != 0)
-		return (1);
-	deadline = coder->last_compile_start + params->time_to_burnout;
-	pthread_mutex_unlock(&coder->mutex);
-	if (pthread_mutex_lock(&dongle->mutex) != 0)
-		return (1);
-	if ((not_in_queue(coder, dongle) != 0))
-	{
-		pthread_mutex_unlock(&dongle->mutex);
-		return (0);
-	}
-	edf_queue_move(coder, dongle, deadline);
-	pthread_mutex_unlock(&dongle->mutex);
-	return (0);
-}
-
-int	scheduler(t_params *params, t_coder *coder, t_dongle *dongle)
-{
 	if (params->scheduler == FIFO)
-		fifo_way(coder, dongle);
-	else if (params->scheduler == EDF)
-		edf_way(params, coder, dongle);
+		return (a->id < b->id);
+	dl_a = a->last_compile_start + params->time_to_burnout;
+	dl_b = b->last_compile_start + params->time_to_burnout;
+	if (dl_a != dl_b)
+		return (dl_a < dl_b);
+	if (a->compile_count != b->compile_count)
+		return (a->compile_count < b->compile_count);
+	return (a->id < b->id);
+}
+
+static t_coder	*neighbor(t_coder *coder, t_dongle *dongle)
+{
+	t_params	*p;
+	int			i;
+
+	p = coder->params;
+	if (dongle == coder->left_dongle)
+	{
+		if (coder->id == 1)
+			return (&p->coders[p->number_of_coders - 1]);
+		return (&p->coders[coder->id - 2]);
+	}
+	if (coder->id == p->number_of_coders)
+		return (&p->coders[0]);
+	i = coder->id;
+	return (&p->coders[i]);
+}
+
+int	is_my_turn(t_coder *coder, t_dongle *dongle)
+{
+	t_coder	*other;
+	int		other_requesting;
+
+	other = neighbor(coder, dongle);
+	pthread_mutex_lock(&other->mutex);
+	other_requesting = other->requesting;
+	pthread_mutex_unlock(&other->mutex);
+	if (other_requesting == 0)
+		return (1);
+	if (has_priority(coder->params, coder, other))
+		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:25 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/10 10:45:41 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/19 00:00:19 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	clean_dongles(t_dongle *dongles, int count)
 	i = 0;
 	while (i < count)
 	{
-		free(dongles[i].queue);
-		pthread_cond_destroy(&dongles[i].cond);
 		pthread_mutex_destroy(&dongles[i].mutex);
 		i++;
 	}
@@ -44,6 +42,8 @@ void	clean_global_mutex(t_params *params)
 {
 	pthread_mutex_destroy(&params->print_mutex);
 	pthread_mutex_destroy(&params->state_mutex);
+	pthread_mutex_destroy(&params->start_mutex);
+	pthread_cond_destroy(&params->start_cond);
 }
 
 void	clean_all(t_params *params)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/14 16:30:28 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/18 23:59:43 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,18 @@ typedef struct s_params
 	t_coder			*coders;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	state_mutex;
+	int				is_ready;
+	pthread_cond_t	start_cond;
+	pthread_mutex_t	start_mutex;
 	pthread_t		monitor;
 }	t_params;
 
 typedef struct s_dongle
 {
 	pthread_mutex_t	mutex;
-	pthread_cond_t	cond;
 	int				id;
 	int				owner;
-	t_queue			*queue;
+	int				queue[2];
 	long long		available_at;
 }	t_dongle;
 
@@ -82,14 +84,9 @@ typedef struct s_coder
 	t_dongle			*right_dongle;
 	int					id;
 	int					compile_count;
+	int					requesting;
 	long long			last_compile_start;
 }	t_coder;
-
-typedef struct s_queue
-{
-	int			id;
-	long long	last_compile_start;
-}	t_queue;
 
 // Cleaning
 void		clean_dongles(t_dongle *dongles, int count);
@@ -109,6 +106,7 @@ long long	calculate_time(void);
 long long	get_time(t_params *params);
 void		sleep_until_ms(t_params *params, long long ms_duration);
 t_timespec	get_future_timespec(long milliseconds);
+
 // Log
 int		print_log(t_params *params, int id, char *str);
 
@@ -123,18 +121,15 @@ void		stop_all_coders(t_params *params);
 int			coder_action(t_coder *coder);
 
 //Dongle
-int 		take_dongles(t_coder *coder);
-int			take_dongle(t_coder *coder, t_dongle *dongle);
-int			drop_dongle(t_coder *coder, t_dongle *dongle);
+int			take_dongles(t_coder *coder);
+void 		drop_dongles(t_coder *coder);
 
 //Scheduler
-int			scheduler(t_params *params, t_coder *coder, t_dongle *dongle);
-int			add_to_queue(t_coder *coder, t_dongle *dongle);
-int			remove_from_queue(t_coder *coder, t_dongle *dongle);
+void		build_queues(t_coder *coder);
+int			is_my_turn(t_coder *coder, t_dongle *dongle);
 
 //Utils
 int			is_it_running(t_params *params);
-int			not_in_queue(t_coder *coder, t_dongle *dongle);
 
 // Main
 int			main(int ac, char **av);

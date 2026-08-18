@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:53 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/17 16:37:14 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/18 22:49:44 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,4 @@ int	is_it_running(t_params *params)
 	running = params->is_running;
 	pthread_mutex_unlock(&params->state_mutex);
 	return (running);
-}
-
-int	not_in_queue(t_coder *coder, t_dongle *dongle)
-{
-	if (dongle->queue[0].id != coder->id && dongle->queue[1].id != coder->id)
-		return (0);
-	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:16:05 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/17 16:31:43 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/18 22:49:30 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,9 @@ static int	compile_count_checker(t_params *params, int nb)
 
 void	stop_all_coders(t_params *params)
 {
-	int	j;
-
 	pthread_mutex_lock(&params->state_mutex);
 	params->is_running = 0;
 	pthread_mutex_unlock(&params->state_mutex);
-	j = 0;
-	while (j < params->number_of_coders)
-	{
-		pthread_mutex_lock(&params->dongles[j].mutex);
-		pthread_cond_broadcast(&params->dongles[j].cond);
-		pthread_mutex_unlock(&params->dongles[j].mutex);
-		j++;
-	}
 }
 
 static int	check_coder_status(t_params *params, int i, int *enough_compilation)
