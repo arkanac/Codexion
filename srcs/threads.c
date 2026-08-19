@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:50 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 00:01:09 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/19 18:30:21 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-int thread_failsafe(t_params *params, int nb)
+static int	thread_failsafe(t_params *params, int nb)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	stop_all_coders(params);
@@ -45,13 +45,12 @@ int thread_failsafe(t_params *params, int nb)
 			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
-int	make_threads(t_params *params)
+static int	create_coder_threads(t_params *params)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (i < params->number_of_coders)
@@ -61,16 +60,25 @@ int	make_threads(t_params *params)
 		{
 			thread_failsafe(params, i);
 			return (handle_error(ERR_THREAD_INIT));
-		}	
+		}
 		i++;
 	}
-	if (pthread_create(&params->monitor, NULL, monitor, params) != 0)
-		return(1);
 	params->start_time = calculate_time();
+	if (pthread_create(&params->monitor, NULL, monitor, params) != 0)
+		return (1);
 	pthread_mutex_lock(&params->start_mutex);
 	params->is_ready = 1;
 	pthread_cond_broadcast(&params->start_cond);
 	pthread_mutex_unlock(&params->start_mutex);
+	return (0);
+}
+
+int	make_threads(t_params *params)
+{
+	int	j;
+
+	if (create_coder_threads(params) != 0)
+		return (1);
 	j = 0;
 	while (j < params->number_of_coders)
 	{

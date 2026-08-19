@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/18 22:53:52 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/19 18:14:49 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ static int	has_priority(t_params *params, t_coder *a, t_coder *b)
 	long long	dl_b;
 
 	if (params->scheduler == FIFO)
+	{
+		if (a->request_time != b->request_time)
+			return (a->request_time < b->request_time);
 		return (a->id < b->id);
+	}
 	dl_a = a->last_compile_start + params->time_to_burnout;
 	dl_b = b->last_compile_start + params->time_to_burnout;
 	if (dl_a != dl_b)
 		return (dl_a < dl_b);
-	if (a->compile_count != b->compile_count)
-		return (a->compile_count < b->compile_count);
-	return (a->id < b->id);
+	return (1);
 }
 
 static t_coder	*neighbor(t_coder *coder, t_dongle *dongle)

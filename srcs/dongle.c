@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:39 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/18 22:48:18 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/19 18:15:47 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	take_dongles(t_coder *coder)
 
 	left = coder->left_dongle;
 	right = coder->right_dongle;
+	if (left == right)
+		return (1);
 	lock_both(left, right);
 	if (dongle_ready(coder, left) && dongle_ready(coder, right))
 	{

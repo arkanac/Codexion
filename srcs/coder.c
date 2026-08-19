@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 00:41:53 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/19 18:15:10 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	set_requesting(t_coder *coder, int value)
 {
 	pthread_mutex_lock(&coder->mutex);
 	coder->requesting = value;
+	if (value == 1)
+		coder->request_time = get_time(coder->params);
 	pthread_mutex_unlock(&coder->mutex);
 }
 

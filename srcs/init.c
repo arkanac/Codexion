@@ -6,13 +6,13 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 00:00:08 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/19 18:26:32 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	init_dongle(int id, t_dongle *dongle)
+static int	init_dongle(int id, t_dongle *dongle)
 {
 	dongle->id = id;
 	dongle->owner = -1;
@@ -48,7 +48,8 @@ t_dongle	*create_dongles(int nb)
 	return (dongles);
 }
 
-int	init_coder(int i, t_coder *coder, t_dongle *dongles, t_params *params)
+static int	init_coder(int i, t_coder *coder, t_dongle *dongles,
+						t_params *params)
 {
 	int	id;
 	int	nb;
@@ -64,6 +65,7 @@ int	init_coder(int i, t_coder *coder, t_dongle *dongles, t_params *params)
 	coder->right_dongle = &dongles[(i + 1) % nb];
 	coder->params = params;
 	coder->requesting = 0;
+	coder->request_time = 0;
 	return (0);
 }
 
@@ -93,43 +95,9 @@ t_coder	*create_coders(int nb, t_dongle *dongles, t_params *params)
 
 int	init_all(t_params *params)
 {
-	int	nb;
-
-	if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
-		return (handle_error(ERR_MUTEX_INIT));
-	if (pthread_mutex_init(&params->state_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&params->print_mutex);
-		return (handle_error(ERR_MUTEX_INIT));
-	}
-	if (pthread_mutex_init(&params->start_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&params->print_mutex);
-		pthread_mutex_destroy(&params->state_mutex);
-		return (handle_error(ERR_MUTEX_INIT));
-	}
-	if (pthread_cond_init(&params->start_cond, NULL) != 0)
-	{
-		pthread_mutex_destroy(&params->print_mutex);
-		pthread_mutex_destroy(&params->state_mutex);
-		pthread_mutex_destroy(&params->start_mutex);
-		return (handle_error(ERR_COND_INIT));
-	}
-	params->is_ready = 0;
-	params->start_time = calculate_time();
-	nb = params->number_of_coders;
-	params->dongles = create_dongles(nb);
-	if (!params->dongles)
-	{
-		clean_global_mutex(params);
+	if (init_mutexes(params) != 0)
 		return (1);
-	}
-	params->coders = create_coders(nb, params->dongles, params);
-	if (!params->coders)
-	{
-		clean_global_mutex(params);
-		clean_dongles(params->dongles, nb);
+	if (init_params_struct(params) != 0)
 		return (1);
-	}
 	return (0);
 }

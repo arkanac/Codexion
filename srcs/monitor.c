@@ -6,7 +6,7 @@
 /*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:16:05 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/18 22:49:30 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/19 18:15:34 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int	check_coder_status(t_params *params, int i, int *enough_compilation)
 	finished = compile_count_checker(params, i);
 	*enough_compilation += finished;
 	pthread_mutex_unlock(&params->coders[i].mutex);
-	if (finished == 0 && (get_time(params) - coder_time)
-		> params->time_to_burnout)
+	if ((finished == 0 && (get_time(params) - coder_time)
+			> params->time_to_burnout) || params->number_of_coders == 1)
 	{
 		print_log(params, params->coders[i].id, "burned out");
 		stop_all_coders(params);
