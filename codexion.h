@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 11:24:25 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/20 16:43:48 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 typedef struct s_params		t_params;
 typedef struct s_dongle		t_dongle;
 typedef struct s_coder		t_coder;
-typedef struct s_queue		t_queue;
-typedef struct timespec		t_timespec;
 
 typedef enum e_scheduler
 {
@@ -71,7 +69,8 @@ typedef struct s_dongle
 	pthread_mutex_t	mutex;
 	int				id;
 	int				owner;
-	int				queue[2];
+	int				heap[2];
+	int				heap_size
 	long long		available_at;
 }	t_dongle;
 

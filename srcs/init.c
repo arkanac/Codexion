@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 18:26:32 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/20 16:46:20 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static int	init_dongle(int id, t_dongle *dongle)
 	dongle->id = id;
 	dongle->owner = -1;
 	dongle->available_at = 0;
-	dongle->queue[0] = 0;
-	dongle->queue[1] = 0;
+	dongle->heap[0] = -1;
+	dongle->heap[1] = -1;
+	dongle->heap_size = 0
 	if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
 		return (handle_error(ERR_MUTEX_INIT));
 	return (0);

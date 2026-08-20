@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:42:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 18:14:49 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/20 16:36:45 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,5 @@ int	is_my_turn(t_coder *coder, t_dongle *dongle)
 		return (1);
 	return (0);
 }
+
+
