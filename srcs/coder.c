@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 18:15:10 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/20 11:13:58 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static void	set_requesting(t_coder *coder, int value)
 
 int	coder_action(t_coder *coder)
 {
-	if (coder->id % 2 == 0)
-		usleep(1000);
 	while (coder->compile_count < coder->params->number_of_compiles_required
 		&& is_it_running(coder->params))
 	{

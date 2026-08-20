@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 18:23:27 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/20 11:24:25 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,13 @@ void		clean_coders(t_coder *coders, int count);
 void		clean_global_mutex(t_params *params);
 void		clean_all(t_params *params);
 
+//Coder action
+int			coder_action(t_coder *coder);
+
+//Dongle
+int			take_dongles(t_coder *coder);
+void		drop_dongles(t_coder *coder);
+
 //Error
 int			handle_error(t_error code);
 
@@ -106,34 +113,24 @@ int			init_all(t_params *params);
 t_dongle	*create_dongles(int nb);
 t_coder		*create_coders(int nb, t_dongle *dongles, t_params *params);
 
+// Monitoring
+void		*monitor(void *arg);
+void		stop_all_coders(t_params *params);
+
+//Scheduler
+int			is_my_turn(t_coder *coder, t_dongle *dongle);
+
+// Threads
+int			make_threads(t_params *params);
+
 // Time
 long long	calculate_time(void);
 long long	get_time(t_params *params);
 void		sleep_until_ms(t_params *params, long long ms_duration);
 
-// Log
-int			print_log(t_params *params, int id, char *str);
-
-// Threads
-int			make_threads(t_params *params);
-
-// Monitoring
-void		*monitor(void *arg);
-void		stop_all_coders(t_params *params);
-
-//Coder action
-int			coder_action(t_coder *coder);
-
-//Dongle
-int			take_dongles(t_coder *coder);
-void		drop_dongles(t_coder *coder);
-
-//Scheduler
-void		build_queues(t_coder *coder);
-int			is_my_turn(t_coder *coder, t_dongle *dongle);
-
 //Utils
 int			is_it_running(t_params *params);
+int			print_log(t_params *params, int id, char *str);
 
 // Main
 int			main(int ac, char **av);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:06:43 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/19 18:16:50 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/20 11:37:40 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	handle_error(t_error code)
 {
 	if (code == ERR_ARGS)
 		fprintf(stderr, "Error: invalid arguments,"
-			"must be a positive integer\n");
+			" must be a positive integer\n");
 	if (code == ERR_NB_ARGS)
 		fprintf(stderr, "Error: invalid number "
 			"of arguments\n");
