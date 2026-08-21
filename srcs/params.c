@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:55:57 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/21 11:35:56 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/21 16:54:50 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	init_params(int ac, char *av[], t_params *params)
 	if (validation(ac, av) != 0)
 		return (1);
 	params->number_of_coders = atoi(av[1]);
+	if (params->number_of_coders <= 1)
+		return (handle_error(ERR_NB_CDRS));
 	params->time_to_burnout = atoi(av[2]);
 	params->time_to_compile = atoi(av[3]);
 	params->time_to_debug = atoi(av[4]);

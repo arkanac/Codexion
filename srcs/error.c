@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:06:43 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 11:37:40 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 16:54:33 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	handle_error(t_error code)
 	if (code == ERR_NB_ARGS)
 		fprintf(stderr, "Error: invalid number "
 			"of arguments\n");
+	if (code == ERR_NB_CDRS)
+		fprintf(stderr, "There must be more than 1 coder");
 	else if (code == ERR_SCHEDULER)
 		fprintf(stderr, "Error: scheduler must be fifo or edf\n");
 	else if (code == ERR_MALLOC)

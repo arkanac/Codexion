@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/21 11:57:52 by rem              ###   ########lyon.fr   */
+/*   Updated: 2026/08/21 16:55:05 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef enum e_error
 {
 	ERR_ARGS,
 	ERR_NB_ARGS,
+	ERR_NB_CDRS,
 	ERR_SCHEDULER,
 	ERR_MALLOC,
 	ERR_MUTEX_INIT,
