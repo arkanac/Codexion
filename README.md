@@ -278,14 +278,17 @@ simulation stops promptly and every thread can be joined without blocking.
 
 - The POSIX threads manual pages: `pthread_create`, `pthread_join`,
   `pthread_mutex_lock`, `pthread_cond_wait`, `pthread_cond_broadcast`.
-- The manual page for `gettimeofday` for time handling.
+- The manual page for `gettimeofday` for time handling
+ - https://man7.org/linux/man-pages/man2/gettimeofday.2.html
 - General material on the Dining Philosophers problem and on Coffman's four
   conditions for deadlock.
+  - https://en.wikipedia.org/wiki/Dining_philosophers_problem
+  - https://en.wikipedia.org/wiki/Deadlock_(computer_science)
 - The essential Code Vault playlist on threads, which taught me everything i needed on the subject :
-    https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2
+    - https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2
 - The excellent Codexion Vizualer who helped me see the wrongness of my code :
-    https://codexion-visualizer.sacha-dev.me/
-- My left and right neighbors
+    - https://codexion-visualizer.sacha-dev.me/
+- My left and right neighbors : @casyr, @Flipsbone, @antoine71 
 
 ### Use of AI
 
@@ -293,5 +296,5 @@ AI was used to:
 
 - explain the underlying concurrency concepts (threads, mutexes, the start
   barrier, atomic multi-resource acquisition, the binary-heap priority queue,
-  and the reasoning behind polling versus condition variables);
+  and the reasoning behind polling versus condition variables) and help correct the errors coming out of it;
 - review code 
