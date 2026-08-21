@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:53 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 16:27:50 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 15:57:47 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	print_log(t_params *params, int id, char *str)
 {
 	long long	now_time;
 
-	now_time = get_time(params);
 	pthread_mutex_lock(&params->print_mutex);
 	if (!is_it_running(params))
 	{
 		pthread_mutex_unlock(&params->print_mutex);
 		return (1);
 	}
+	now_time = get_time(params);
 	fprintf(stdout, "%lld %d %s\n", now_time, id, str);
 	pthread_mutex_unlock(&params->print_mutex);
 	return (0);
