@@ -288,7 +288,7 @@ simulation stops promptly and every thread can be joined without blocking.
     - https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2
 - The excellent Codexion Vizualer who helped me see the wrongness of my code :
     - https://codexion-visualizer.sacha-dev.me/
-- My left and right neighbors : @casyr, @Flipsbone, @antoine71 
+- My left and right neighbors : [@casyr](https://github.com/casyr), [@Flipsbone](https://github.com/Flipsbone), [@antoine71](https://github.com/antoine71)
 
 ### Use of AI
 
