@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 16:43:48 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 11:57:52 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ typedef struct s_params
 typedef struct s_dongle
 {
 	pthread_mutex_t	mutex;
+	pthread_mutex_t heap_mutex;
 	int				id;
 	int				owner;
 	int				heap[2];
-	int				heap_size
+	int				heap_size;
 	long long		available_at;
 }	t_dongle;
 
@@ -83,7 +84,6 @@ typedef struct s_coder
 	t_dongle			*right_dongle;
 	int					id;
 	int					compile_count;
-	int					requesting;
 	long long			request_time;
 	long long			last_compile_start;
 }	t_coder;
@@ -103,6 +103,16 @@ void		drop_dongles(t_coder *coder);
 
 //Error
 int			handle_error(t_error code);
+
+// Heap
+void		heap_push(t_params *params, t_dongle *dongle, int coder_id);
+int			heap_pop(t_params *params, t_dongle *dongle);
+int			heap_peek(t_dongle *dongle);
+void		heap_remove(t_params *params, t_dongle *dongle, int coder_id);
+int			heap_compare(t_params *params, int id_a, int id_b);
+void		sift_down(t_params *params, t_dongle *dongle, int index);
+void		sift_up(t_params *params, t_dongle *dongle, int index);
+void		heap_swap(int *a, int *b);
 
 // Init
 int			init_params(int ac, char *av[], t_params *params);

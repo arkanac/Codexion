@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 16:26:50 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 16:26:51 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 12:12:09 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "codexion.h"
 
@@ -58,6 +57,8 @@ int	take_dongles(t_coder *coder)
 	{
 		left->owner = coder->id;
 		right->owner = coder->id;
+		heap_pop(coder->params, left);
+		heap_pop(coder->params, right);
 		unlock_both(left, right);
 		print_log(coder->params, coder->id, "has taken a dongle");
 		print_log(coder->params, coder->id, "has taken a dongle");

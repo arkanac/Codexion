@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 16:26:33 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 16:26:34 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 11:59:05 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "codexion.h"
 
@@ -21,6 +20,7 @@ void	clean_dongles(t_dongle *dongles, int count)
 	while (i < count)
 	{
 		pthread_mutex_destroy(&dongles[i].mutex);
+		pthread_mutex_destroy(&dongles[i].heap_mutex);
 		i++;
 	}
 	free(dongles);

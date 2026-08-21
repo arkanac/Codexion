@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:28 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 11:13:58 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 12:19:50 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,37 @@ static void	do_cycle(t_coder *coder)
 	pthread_mutex_unlock(&coder->mutex);
 }
 
-static void	set_requesting(t_coder *coder, int value)
+static void	request_dongles(t_coder *coder)
 {
+	t_dongle	*left;
+	t_dongle	*right;
+
+	left = coder->left_dongle;
+	right = coder->right_dongle;
 	pthread_mutex_lock(&coder->mutex);
-	coder->requesting = value;
-	if (value == 1)
-		coder->request_time = get_time(coder->params);
+	coder->request_time = get_time(coder->params);
 	pthread_mutex_unlock(&coder->mutex);
+	pthread_mutex_lock(&left->mutex);
+	heap_push(coder->params, left, coder->id);
+	pthread_mutex_unlock(&left->mutex);
+	pthread_mutex_lock(&right->mutex);
+	heap_push(coder->params, right, coder->id);
+	pthread_mutex_unlock(&right->mutex);
+}
+
+static void	unrequest_dongles(t_coder *coder)
+{
+	t_dongle	*left;
+	t_dongle	*right;
+
+	left = coder->left_dongle;
+	right = coder->right_dongle;
+	pthread_mutex_lock(&left->mutex);
+	heap_remove(coder->params, left, coder->id);
+	pthread_mutex_unlock(&left->mutex);
+	pthread_mutex_lock(&right->mutex);
+	heap_remove(coder->params, right, coder->id);
+	pthread_mutex_unlock(&right->mutex);
 }
 
 int	coder_action(t_coder *coder)
@@ -52,12 +76,14 @@ int	coder_action(t_coder *coder)
 	while (coder->compile_count < coder->params->number_of_compiles_required
 		&& is_it_running(coder->params))
 	{
-		set_requesting(coder, 1);
+		request_dongles(coder);
 		while (is_it_running(coder->params) && take_dongles(coder) != 0)
 			usleep(50);
-		set_requesting(coder, 0);
 		if (!is_it_running(coder->params))
+		{
+			unrequest_dongles(coder);
 			return (0);
+		}
 		do_cycle(coder);
 	}
 	return (0);

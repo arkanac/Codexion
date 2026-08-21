@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rem <rem@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 09:27:42 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/20 16:46:20 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/21 11:58:16 by rem              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static int	init_dongle(int id, t_dongle *dongle)
 	dongle->available_at = 0;
 	dongle->heap[0] = -1;
 	dongle->heap[1] = -1;
-	dongle->heap_size = 0
+	dongle->heap_size = 0;
 	if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
+		return (handle_error(ERR_MUTEX_INIT));
+	if (pthread_mutex_init(&dongle->heap_mutex, NULL) != 0)
 		return (handle_error(ERR_MUTEX_INIT));
 	return (0);
 }
@@ -65,7 +67,6 @@ static int	init_coder(int i, t_coder *coder, t_dongle *dongles,
 	coder->left_dongle = &dongles[i];
 	coder->right_dongle = &dongles[(i + 1) % nb];
 	coder->params = params;
-	coder->requesting = 0;
 	coder->request_time = 0;
 	return (0);
 }
