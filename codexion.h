@@ -6,7 +6,7 @@
 /*   By: repichan <repichan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 14:56:24 by repichan          #+#    #+#             */
-/*   Updated: 2026/08/21 16:55:05 by repichan         ###   ########.fr       */
+/*   Updated: 2026/08/22 12:32:07 by repichan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_params
 typedef struct s_dongle
 {
 	pthread_mutex_t	mutex;
-	pthread_mutex_t heap_mutex;
+	pthread_mutex_t	heap_mutex;
 	int				id;
 	int				owner;
 	int				heap[2];
